@@ -29,11 +29,9 @@ class MovieDetails extends Component {
   //   })
   // }
 
-  // handleMovieClick=()=> {
-  //   this.props.dispatch({ type: "FIND_MOVIE_ID", payload: this.props.movie.id });
-  //   this.props.dispatch({ type: "FIND_MOVIE", payload: this.props.movie });
-  //   this.props.history.push(`/movie/${this.props.movie.id}`)
-  // }
+  handleEditClick=()=> {
+    this.props.history.push(`/edit`)
+  }
 handleBackButton=()=>{
   console.log('in back button from details')
   this.props.history.push(`/movie/`)
@@ -50,6 +48,7 @@ handleBackButton=()=>{
           <p>{this.props.movie.id}</p> */}
           <p key={this.props.reduxState.myMovie.id}>{this.props.reduxState.myMovie.description}</p>
           <button onClick={this.handleBackButton}>Back</button>
+          <button onClick={this.handleEditClick}>Edit</button>
 
           <p>Genre: {this.props.reduxState.myMovie.name}</p>
 

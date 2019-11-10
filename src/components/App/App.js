@@ -4,6 +4,7 @@ import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import MovieList from '../MovieList/MovieList';
 import MovieDetails from '../MovieDetails/MovieDetails'
+import MovieEdit from '../MovieEdit/MovieEdit'
 
 import Header from '../Header/Header';
 
@@ -47,10 +48,12 @@ const mapReduxStateToProps = reduxState => ({
 const App = props => (
   <Router >
     <div>
-      <Header />
+      {/* <Header /> */}
       <Route exact path="/movie" component={MovieList} />
       {/* <Route exact path="/details" component={MovieDetails}/> */}
       <Route exact path='/details' component={MovieDetails}/>
+      <Route exact path='/edit' component={MovieEdit}/>
+
     </div>
     <pre>{JSON.stringify(props.myMovie)}</pre>
 
