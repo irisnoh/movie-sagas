@@ -5,49 +5,51 @@ import Movie from '../MovieList/MovieList'
 import { withRouter } from 'react-router-dom';
 
 class MovieDetails extends Component {
-  state =  {
-    description: this.props.reduxState.myMovie.description}
-
-
- 
-
+  // state =  {
+  //   description: this.props.reduxState.myMovie.description}
   // Renders the entire app on the DOM
     // componentDidMount(){
-    //   this.getMovies();
-    // }
+    //   this.state
+    //   }
 
     // getMovies() {
     //   this.props.dispatch({ type: 'GET_MOVIE' })
     // }
-  getDetails =()=>{
-    this.setState({
-      description: this.props.reduxState.myMovie.description
-    })
-  }
+  // getDetails =()=>{
+  //   this.setState({
+  //     description: this.props.reduxState.myMovie.description
+  //   })
+  // }
 
   // handleMovieClick=()=> {
   //   this.props.dispatch({ type: "FIND_MOVIE_ID", payload: this.props.movie.id });
   //   this.props.dispatch({ type: "FIND_MOVIE", payload: this.props.movie });
   //   this.props.history.push(`/movie/${this.props.movie.id}`)
   // }
-
+handleBackButton=()=>{
+  console.log('in back button from details')
+  this.props.history.push(`/movie/`)
+}
   render() {
     return (
       <>
-        <p onChange={this.getDetails}>{this.state.description}</p>
-        {/* <div>
-          <h1>{this.props.movie.title}</h1>
+        {/* <p onChange={this.getDetails}>{this.state.description}</p> */}
+        <div>
+          {/* <h1>{this.props.movie.title}</h1>
           <img src={this.props.movie.poster}
             onClick={this.handleMovieClick} />
           <p>{this.props.movie.description}</p>
-          <p>{this.props.movie.id}</p>
-        </div> */}
+          <p>{this.props.movie.id}</p> */}
+          <p key={this.props.reduxState.myMovie.id}>{this.props.reduxState.myMovie.description}</p>
+          <button onClick={this.handleBackButton}>Back</button>
+
+        </div>
 
         {/* <pre>
           {JSON.stringify(this.props.movie, null, 2)}
         </pre> */}
          <pre>
-          {JSON.stringify(this.state, null, 2)}
+          {JSON.stringify(this.props.reduxState.myMovie, null, 2)}
         </pre>
       </>
     );

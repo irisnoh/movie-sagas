@@ -15,8 +15,6 @@ class Movie extends Component {
     this.props.dispatch({ type: 'GET_MOVIE' })
   }
 
-
-
   handleMovieClick(movie) {
     this.props.dispatch({ type: "FIND_MOVIE_ID", payload: movie.id });
     this.props.dispatch({ type: "FIND_MOVIE", payload: movie });
@@ -28,14 +26,14 @@ class Movie extends Component {
         <div>Movie Page:</div>
         {this.props.reduxState.movies.map((movie, i) =>
         // <MovieDetails movie={movie} key={i} />
-
         {
           return (
             <>
-              <div key={i}>{movie.title}</div>
-              <img src={movie.poster} alt="movieImage"
+              <div key={i}>{movie.title}
+              <img src={movie.poster} alt={movie.title}
                 onClick={() => this.handleMovieClick(movie)} />
               <p>{movie.description}</p>
+              </div>
 
             </>
           )
