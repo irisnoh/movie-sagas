@@ -6,13 +6,13 @@ import { withRouter } from 'react-router-dom';
 
 class MovieDetails extends Component {
 
-  componentDidMount() {
-    this.getGenres();
-  }
+  // componentDidMount() {
+  //   this.getGenres();
+  // }
 
-  getGenres() {
-    this.props.dispatch({ type: 'GET_GENRE' })
-  }
+  // getGenres() {
+  //   this.props.dispatch({ type: 'GET_GENRE' })
+  // }
   // state =  {
   //   description: this.props.reduxState.myMovie.description}
   // Renders the entire app on the DOM

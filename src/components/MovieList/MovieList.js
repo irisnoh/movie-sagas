@@ -18,7 +18,7 @@ class Movie extends Component {
   handleMovieClick(movie) {
     this.props.dispatch({ type: "FIND_MOVIE_ID", payload: movie.id });
     this.props.dispatch({ type: "FIND_MOVIE", payload: movie });
-    this.props.history.push(`/movie/${movie.id}`)
+    this.props.history.push(`/details`)
   }
   render() {
     return (

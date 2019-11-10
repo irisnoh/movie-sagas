@@ -50,7 +50,7 @@ const App = props => (
       <Header />
       <Route exact path="/movie" component={MovieList} />
       {/* <Route exact path="/details" component={MovieDetails}/> */}
-      <Route exact path='/movie/:id' component={MovieDetails}/>
+      <Route exact path='/details' component={MovieDetails}/>
     </div>
     <pre>{JSON.stringify(props.myMovie)}</pre>
 
