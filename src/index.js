@@ -55,11 +55,28 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        myMovieId, 
+        myMovie,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
 );
 
+const myMovieId = (state = '', action) => {
+    if(action.type === "FIND_MOVIE_ID"){
+      return {...state, myMovieId: action.payload}
+    } else {
+      return state;
+    }
+  }
+  
+  const myMovie = (state = {}, action) => {
+    if(action.type === "FIND_MOVIE"){
+      return action.payload
+    } else {
+      return state;
+    }
+  }
 // Pass rootSaga into our sagaMiddleware
 sagaMiddleware.run(rootSaga);
 

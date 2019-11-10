@@ -12,6 +12,12 @@ componentDidMount() {
   getMovie() {
     this.props.dispatch({ type: 'GET_MOVIE' })
 }
+
+handleMovieClick(movie){
+    this.props.dispatch({ type: "FIND_MOVIE_ID", payload: movie.id });
+    this.props.dispatch({ type: "FIND_MOVIE", payload: movie});
+    this.props.history.push(`/movie/${movie.id}`)
+}
   render() {
     return (
       <>
@@ -20,8 +26,9 @@ componentDidMount() {
                         return (
                         <>
                         <div key={i}>{movie.title}</div>
-                            <img src={movie.poster} />
+                            <img src={movie.poster} onClick={()=>this.handleMovieClick(movie)} />
                             <p>{movie.description}</p>
+                            
                             </>)
                     })}
 
