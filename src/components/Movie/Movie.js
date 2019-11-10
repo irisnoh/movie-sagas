@@ -26,7 +26,7 @@ componentDidMount() {
                     })}
 
  <pre>
-          {JSON.stringify(this.props.reduxState.movies, null, 2)}
+          {JSON.stringify(this.props.reduxState, null, 2)}
         </pre>
      </>
     );
