@@ -17,12 +17,12 @@ componentDidMount() {
       <>
     <div>Movie Page:</div>
     {this.props.reduxState.movies.map((movie, i) => {
-                        return (<li key={i}>{movie.title} 
-                        {/* <DeleteForeverIcon color='secondary' size='small' variant='outlined' 
-                            onClick={()=>this.deletePlant(plant.id)}>DELETE
-                        </DeleteForeverIcon>
-                        <LocalFloristSharpIcon color="secondary" fontSize="small" onClick={()=>this.handlePlantClick(plant)}/> */}
-                        </li>)
+                        return (
+                        <>
+                        <div key={i}>{movie.title}</div>
+                            <img src={movie.poster} />
+                            <p>{movie.description}</p>
+                            </>)
                     })}
 
  <pre>
