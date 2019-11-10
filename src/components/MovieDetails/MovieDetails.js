@@ -5,6 +5,14 @@ import Movie from '../MovieList/MovieList'
 import { withRouter } from 'react-router-dom';
 
 class MovieDetails extends Component {
+
+  componentDidMount() {
+    this.getGenres();
+  }
+
+  getGenres() {
+    this.props.dispatch({ type: 'GET_GENRE' })
+  }
   // state =  {
   //   description: this.props.reduxState.myMovie.description}
   // Renders the entire app on the DOM
@@ -42,6 +50,8 @@ handleBackButton=()=>{
           <p>{this.props.movie.id}</p> */}
           <p key={this.props.reduxState.myMovie.id}>{this.props.reduxState.myMovie.description}</p>
           <button onClick={this.handleBackButton}>Back</button>
+
+          <p>Genre: {this.props.reduxState.myMovie.name}</p>
 
         </div>
 
