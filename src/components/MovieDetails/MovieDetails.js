@@ -17,17 +17,26 @@ class MovieDetails extends Component {
     return (
       <>
         <div>
-
-          <p key={this.props.reduxState.myMovie.id}>{this.props.reduxState.myMovie.description}</p>
+         <p> {this.props.reduxState.myMovie.description}</p>
+       <p>Genre: {this.props.reduxState.myMovie.name}</p>
           <button onClick={this.handleBackButton}>Back</button>
           <button onClick={this.handleEditClick}>Edit</button>
 
-          <p>Genre: {this.props.reduxState.myMovie.name}</p>
-
+          {/* <p>Genre: {this.props.reduxState.movieDetails.details}</p> */}
+           {/* <ul>
+            {this.props.reduxState.movieDetails.genres.map((genre) =>
+              <li>
+                {genre.name}
+              </li>
+            )} */}
+          {/* </ul>  */}
         </div>
         <pre>
           {JSON.stringify(this.props.reduxState.myMovie, null, 2)}
         </pre>
+        {/* {JSON.stringify(this.props.reduxState.movieDetails.details, null, 2)}
+        {JSON.stringify(this.props.reduxState.movieDetails.genres, null, 2)} */}
+
       </>
     );
   }

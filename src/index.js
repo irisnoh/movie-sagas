@@ -16,35 +16,38 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('GET_MOVIE', movieSaga)
+    yield takeEvery('GET_DETAILS', getMovieDetailsSaga)
     yield takeEvery('UPDATE_DETAILS', updateDetails)
+    yield takeEvery('EDIT_DETAILS', editDetailsSaga)
 
-    // yield takeEvery('FIND_MOVIE', movieDescriptionSaga);
-    // yield takeEvery('GET_GENRE', movieGenreSaga);
     ;
 }
-// function* movieDescriptionSaga() {
-//     try {
-//         const movieResponse = yield axios.get('/movie');
-//         yield put ({ type: 'GET_MOVIE', payload: movieResponse.data})
-//     } catch(error) {
-//         console.log('error fetching movie', error)
-//     }
-//   }
-//   function* movieGenreSaga() {
-//     try {
-//         const genreResponse = yield axios.get('/movie/:id');
-//         yield put ({ type: 'SET_GENRES', payload: genreResponse.data})
-//     } catch(error) {
-//         console.log('error fetching genre', error)
-//     }
-//   }
-
-function* updateDetails () {
+  function* getMovieDetailsSaga(action) {
     try {
-        const editResponse=yield axios.get('/movie');
-        yield put ({ type: 'SET_MOVIES', payload: editResponse.data})
+        const movieDetails = yield axios.get(`/movie/${action.payload}`)
+        // const movieGenre = yield axios.get(`/movie/genre/${action.payload}`)
+        yield put({type: 'SET_DETAILS', payload: [movieDetails.data[0]]})
+    }
+    catch (error) {
+        console.log('error in getMovieDetailsSaga', error);
+    }
+}
+function* updateDetails(action) {
+    try {
+        console.log(action.payload)
+        yield axios.put(`/movie/${action.payload.id}`, {title: action.payload.title, description: action.payload.description});
+        yield put ({ type: 'GET_MOVIE', payload: action.payload.id})
     } catch(error) {
         console.log('error fetching edit updates', error)
+    }
+}
+function* editDetailsSaga(action) {
+    try {
+        yield axios.put(`/movie/${action.payload.id}`, action.payload);
+        // yield put({type: 'SEE_INFO', payload: action.payload.id});
+        yield put({type: 'GET_MOVIES'})
+    } catch(error) {
+         console.log('error in editDescriptionSaga', error)
     }
 }
 
@@ -79,8 +82,17 @@ const genres = (state = [], action) => {
             return state;
     }
 }
-  
+
+const movieDetails = (state = {}, action) => {
+    console.log(action);
+  switch (action.type) {
+      case "SET_DETAILS": 
+    return {details: action.payload[0], genres: action.payload[1]};
+ default: 
+    return state;
+}}
   const myMovie = (state = {}, action) => {
+      console.log(action);
     if(action.type === "FIND_MOVIE"){
       return action.payload
     } else {
@@ -94,6 +106,7 @@ const storeInstance = createStore(
         movies,
         genres, 
         myMovie,
+        movieDetails
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
