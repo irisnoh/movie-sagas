@@ -16,19 +16,20 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('GET_MOVIE', movieSaga)
-    yield takeEvery('FIND_MOVIE', movieDescriptionSaga);
-    // yield takeEvery('GET_GENRE', movieGenreSaga);
+    yield takeEvery('UPDATE_DETAILS', updateDetails)
 
+    // yield takeEvery('FIND_MOVIE', movieDescriptionSaga);
+    // yield takeEvery('GET_GENRE', movieGenreSaga);
     ;
 }
-function* movieDescriptionSaga() {
-    try {
-        const movieResponse = yield axios.get('/movie');
-        yield put ({ type: 'GET_MOVIE', payload: movieResponse.data})
-    } catch(error) {
-        console.log('error fetching movie', error)
-    }
-  }
+// function* movieDescriptionSaga() {
+//     try {
+//         const movieResponse = yield axios.get('/movie');
+//         yield put ({ type: 'GET_MOVIE', payload: movieResponse.data})
+//     } catch(error) {
+//         console.log('error fetching movie', error)
+//     }
+//   }
 //   function* movieGenreSaga() {
 //     try {
 //         const genreResponse = yield axios.get('/movie/:id');
@@ -37,6 +38,15 @@ function* movieDescriptionSaga() {
 //         console.log('error fetching genre', error)
 //     }
 //   }
+
+function* updateDetails () {
+    try {
+        const editResponse=yield axios.get('/movie');
+        yield put ({ type: 'SET_MOVIES', payload: editResponse.data})
+    } catch(error) {
+        console.log('error fetching edit updates', error)
+    }
+}
 
 function* movieSaga() {
     try {
@@ -58,14 +68,7 @@ const movies = (state = [], action) => {
             return state;
     }
 }
-const moviesDescription = (state = [], action) => {
-    switch (action.type) {
-        case 'SET_MOVIES_DESCRIPTION':
-            return action.payload;
-        default:
-            return state;
-    }
-}
+
 
 // Used to store the movie genres
 const genres = (state = [], action) => {
@@ -76,16 +79,6 @@ const genres = (state = [], action) => {
             return state;
     }
 }
-
-
-
-const myMovieId = (state = '', action) => {
-    if(action.type === "FIND_MOVIE_ID"){
-      return {...state, myMovieId: action.payload}
-    } else {
-      return state;
-    }
-  }
   
   const myMovie = (state = {}, action) => {
     if(action.type === "FIND_MOVIE"){
@@ -99,10 +92,8 @@ const myMovieId = (state = '', action) => {
 const storeInstance = createStore(
     combineReducers({
         movies,
-        genres,
-        myMovieId, 
+        genres, 
         myMovie,
-        moviesDescription
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
